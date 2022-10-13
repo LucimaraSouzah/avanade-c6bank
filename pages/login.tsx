@@ -33,7 +33,7 @@ function Copyright(props: CopyProps) {
 
 const theme = createTheme();
 
-export default function loginPage() {
+export default function LoginPage() {
   const [password, setPassword] = useState<FormDataEntryValue | null>("");
   const [error, setError] = useState<string | boolean>("");
   const [errorMessage, setErrorMessage] = useState<string | boolean>("");
