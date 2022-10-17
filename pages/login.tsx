@@ -1,4 +1,4 @@
-import React, { FormEvent, useState } from "react";
+import React, { FormEvent, useEffect, useState } from "react";
 import {
   Typography,
   Container,
@@ -10,9 +10,19 @@ import {
   Box,
   CssBaseline,
   FormControlLabel,
+  Stack,
+  Snackbar
 } from "@mui/material";
 import Link from "next/link";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import MuiAlert, { AlertProps } from '@mui/material/Alert';
+
+const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
+  props,
+  ref,
+) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 type CopyProps = {
   site?: string;
@@ -34,28 +44,65 @@ function Copyright(props: CopyProps) {
 const theme = createTheme();
 
 export default function LoginPage() {
-  const [password, setPassword] = useState<FormDataEntryValue | null>("");
-  const [error, setError] = useState<string | boolean>("");
-  const [errorMessage, setErrorMessage] = useState<string | boolean>("");
+  const [email, setEmail] = useState<string | null | FormDataEntryValue>("");
+  const [password, setPassword] = useState<
+    undefined | null | string | FormDataEntryValue
+  >("");
+  const [open, setOpen] = useState<boolean | undefined>(false);
+  const [contador, setContador] = useState<number>(0);
+  const [error, setError] = useState<boolean>(false);
+  const [errorMessage, setErrorMessage] = useState<string>("");
+
+  useEffect(() => {
+    if (contador == 0) {
+      document.title = `Executando useEffect a primeira vez. Contador: ${contador}`;
+    } else {
+      document.title = `Executoando useEffect ${contador} vezes`;
+    }
+    console.log(`Executou o useEfect ${contador} vezes`);
+  }, [contador]);
+
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
 
     setPassword(data.get("password"));
-    if (password && password.length < 6) {
-      setError(true);
-      setErrorMessage("Senha deve ter no mínimo 6 caracteres");
-    }
     console.log({
       email: data.get("email"),
       senha: data.get("password"),
     });
   };
 
+  const handleClose = () => {
+    setOpen(false);
+  }  
+
+  useEffect(() => {
+    if (password && password.length < 6) {
+      setError(true);
+      setErrorMessage("A senha deve ter no mínimo 6 caracteres");
+    } else if (password){
+      setError(false);
+      setErrorMessage("");
+      setOpen(true)
+    }
+  }, [password]);
+
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
+        <Stack spacing={2} sx={{ width: '100%' }}>
+        <Snackbar open={open} autoHideDuration={5000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+          Usuário logado com sucesso! Aguarde...
+        </Alert>
+      </Snackbar>
+        </Stack>
+        {/* <Button onClick={() => setContador(contador + 1)}>
+          Mudando o Contador
+        </Button>
+        Contador vale {contador} */}
         <Box
           sx={{
             mt: 8,
