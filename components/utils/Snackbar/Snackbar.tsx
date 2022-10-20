@@ -1,5 +1,5 @@
 import { Stack, Snackbar as Container, AlertProps, AlertColor } from "@mui/material";
-import Alert from "../Alert/Index"
+import Alert from "../Alert"
 import React, { useState } from "react";
 
 type SnackbarProps = {
