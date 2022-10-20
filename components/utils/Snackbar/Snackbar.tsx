@@ -1,4 +1,4 @@
-import { Stack, Snackbar as Container, AlertProps, AlertColor } from "@mui/material";
+import { Stack, Snackbar as Container, AlertColor } from "@mui/material";
 import Alert from "../Alert"
 import React, { useState } from "react";
 
