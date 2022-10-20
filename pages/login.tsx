@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Box, Container, CssBaseline, Typography } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import Copyright from "../components/utils/Copyright/Index";
+import Copyright from "../components/utils/Copyright";
 import Login from "../components/Form/Login";
 import Link from "next/link";
 

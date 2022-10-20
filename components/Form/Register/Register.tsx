@@ -5,7 +5,7 @@ import {
   Typography,
 } from "@mui/material";
 import React, { FormEvent, useEffect, useState } from "react";
-import Snackbar from "../../utils/Snackbar/Index";
+import Snackbar from "../../utils/Snackbar";
 
 export default function Register() {
   const [open, setOpen] = useState<boolean | undefined>(false);
