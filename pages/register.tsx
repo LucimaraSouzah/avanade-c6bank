@@ -16,7 +16,7 @@ import Register from "../components/Form/Register";
 // `;
 const theme = createTheme();
 
-export default function registerPage() {
+export default function RegisterPage() {
   const [contador, setContador] = useState<number>(0);
 
   useEffect(() => {
