@@ -17,8 +17,6 @@ import Register from "../components/Form/Register";
 const theme = createTheme();
 
 export default function registerPage() {
-
-  const [open, setOpen] = useState<boolean | undefined>(false);
   const [contador, setContador] = useState<number>(0);
 
   useEffect(() => {
