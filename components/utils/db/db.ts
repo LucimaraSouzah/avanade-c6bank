@@ -5,7 +5,7 @@ const db: Array<TypeDb> = [
     id: 1,
     type: "pix",
     amount: 100,
-    date: "2022-10-19",
+    date: "2022-10-20",
     description: "Pizza com a galera",
     operation: "credit",
   },
