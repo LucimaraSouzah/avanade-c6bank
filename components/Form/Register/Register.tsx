@@ -42,7 +42,7 @@ export default function Register() {
       setErrorMessage("");
       setOpen(true);
     }
-  }, [password]);
+  }, [password, confirmPassword]);
 
   return (
     <Box
