@@ -1,4 +1,4 @@
-import TypeDb from "../../../types/TypeDb";
+import TypeDb from "../../../../types/TypeDb";
 
 const db: Array<TypeDb> = [
   {
