@@ -1,19 +1,20 @@
 import {
   Box,
   Button,
-  Checkbox,
-  FormControlLabel,
   TextField,
   Typography,
 } from "@mui/material";
 import React, { FormEvent, useEffect, useState } from "react";
-import Snackbar from "../../utils/Snackbar";
+import Snackbar from "../utils/Snackbar";
 
-export default function Login() {
+export default function Register() {
   const [open, setOpen] = useState<boolean | undefined>(false);
   const [error, setError] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [password, setPassword] = useState<
+    undefined | null | string | FormDataEntryValue
+  >("");
+  const [confirmPassword, setConfirmPassword] = useState<
     undefined | null | string | FormDataEntryValue
   >("");
 
@@ -23,6 +24,7 @@ export default function Login() {
 
     setPassword(data.get("password"));
     console.log({
+      nome: data.get("name"),
       email: data.get("email"),
       senha: data.get("password"),
     });
@@ -32,12 +34,15 @@ export default function Login() {
     if (password && password.length < 6) {
       setError(true);
       setErrorMessage("A senha deve ter no mínimo 6 caracteres");
-    } else if (password) {
+    } else if (password && password !== confirmPassword) {
+      setError(true);
+      setErrorMessage("As senhas precisam ser iguais");
+    } else if (password && password === confirmPassword) {
       setError(false);
       setErrorMessage("");
       setOpen(true);
     }
-  }, [password]);
+  }, [password, confirmPassword]);
 
   return (
     <Box
@@ -49,16 +54,25 @@ export default function Login() {
       }}
     >
       <Typography component="h1" variant="h5">
-        Tela de Login
+        Tela de Cadastro
       </Typography>
       <Box component="form" onSubmit={handleSubmit} sx={{ m1: 1 }}>
+        <TextField
+          margin="normal"
+          required
+          id="name"
+          name="name"
+          fullWidth
+          label="Digite seu nome"
+          autoComplete="name"
+        />
         <TextField
           margin="normal"
           required
           id="email"
           name="email"
           fullWidth
-          label="Digite o login"
+          label="Digite o e-mail"
           autoComplete="email"
         />
         <TextField
@@ -71,9 +85,15 @@ export default function Login() {
           label="Digite a senha"
           autoComplete="current-password"
         />
-        <FormControlLabel
-          control={<Checkbox value="remember" color="primary" />}
-          label="Lembrar-me"
+        <TextField
+          margin="normal"
+          required
+          fullWidth
+          id="confirmPassword"
+          name="confirmPassword"
+          type="password"
+          label="Confirme a senha"
+          autoComplete="current-password"
         />
         <Button
           type="submit"
@@ -81,13 +101,13 @@ export default function Login() {
           variant="contained"
           sx={{ mt: 2, mb: 2 }}
         >
-          Login
+          Cadastrar{" "}
         </Button>
         {error && <Typography color="error">{errorMessage}</Typography>}
         {open && (
           <Snackbar
             open={open}
-            message="Login efetuado com sucesso"
+            message="Cadastro efetuado com sucesso"
             hide={5}
             severity="success"
           />
